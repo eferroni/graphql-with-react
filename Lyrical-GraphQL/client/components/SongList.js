@@ -8,7 +8,7 @@ const SongList = (props) => {
   const { error, loading, songs } = props.data;
 
   const onSongDelete = (id) => {
-    props.mutate({ variables: { id } });
+    props.mutate({ variables: { id } }).then(() => props.data.refetch());
   };
 
   if (loading) {
@@ -30,7 +30,8 @@ const SongList = (props) => {
               justifyContent: "space-between",
             }}
           >
-            {title}
+            <Link to={`/songs/${id}`}>{title}</Link>
+
             <i
               className="material-icons"
               style={{ cursor: "pointer" }}
