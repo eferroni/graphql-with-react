@@ -1,8 +1,22 @@
 import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import likeLyric from "../queries/likeLyric";
 
 class LyricList extends Component {
-  onLike(id) {
-    console.log(id);
+  onLike(id, likes) {
+    this.props.mutate({
+      variables: {
+        id: id,
+      },
+      optimisticResponse: {
+        __typename: "Mutation",
+        likeLyric: {
+          id: id,
+          __typename: "LyricType",
+          likes: likes + 1,
+        },
+      },
+    });
   }
 
   render() {
@@ -19,13 +33,24 @@ class LyricList extends Component {
             }}
           >
             {content}
-            <i
-              className="material-icons"
-              onClick={() => this.onLike(id)}
-              style={{ cursor: "pointer" }}
-            >
-              thumb_up
-            </i>
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <i
+                className="material-icons"
+                onClick={() => this.onLike(id, likes)}
+                style={{ cursor: "pointer" }}
+              >
+                thumb_up
+              </i>
+              <span
+                style={{
+                  marginLeft: "10px",
+                  minWidth: "50px",
+                  textAlign: "right",
+                }}
+              >
+                {likes} likes
+              </span>
+            </div>
           </li>
         ))}
       </ul>
@@ -33,4 +58,4 @@ class LyricList extends Component {
   }
 }
 
-export default LyricList;
+export default graphql(likeLyric)(LyricList);

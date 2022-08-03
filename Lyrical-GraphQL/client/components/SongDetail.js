@@ -19,7 +19,7 @@ class SongDetail extends Component {
         <hr style={{ margin: "20px 0" }} />
         <div>
           <h5>Lyrics</h5>
-          <LyricList lyrics={song.lyrics} />
+          <LyricList songId={this.props.params.id} lyrics={song.lyrics} />
         </div>
         <hr style={{ margin: "20px 0" }} />
         <div>
