@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import ApolloClient from "apollo-client";
-import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from "react-apollo";
 import { Router, Route, hashHistory, IndexRoute } from "react-router";
 import SongList from "./components/SongList";
